@@ -1,10 +1,22 @@
 {% extends "layout.html" %}
 
-{% block title %}
-{% endblock %}
+{% block body %}
 
-{% block main %}
-    <form action="/" method="post">
-        <button type="submit" class="btn">Add new item</button>
-    </form>
+<input type="text" id ="task_name" placeholder="New entry">
+<input type="submit" name="add_task" id="temp" value="Add" hidden>
+<div class="form-check"> 
+    <input type="checkbox" class="form-check-input"name="packersOff"> 
+    <label class="form-check-label">entry</label> 
+</div> 
+<div class="form-check"> 
+    <input type="checkbox" class="form-check-input"name="packersOff"> 
+    <label class="form-check-label">hello</label> 
+</div>
+
+<script>
+    document.getElementById("task_name").addEventListener("focus", function() {
+        document.getElementById("temp").removeAttribute("hidden");
+    })
+</script>
+
 {% endblock %}

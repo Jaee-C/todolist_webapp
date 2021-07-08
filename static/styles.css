@@ -1,5 +1,26 @@
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+
+input[type=checkbox]:checked + label.form-check-label {
+    text-decoration: line-through;
+}
 
 body {
     font-family: 'Source Sans Pro', sans-serif;
+}
+
+header {
+    padding-top: 15px;
+    text-align: center;
+}
+
+main {
+    max-width: 500px;
+    margin: 20px auto auto auto;
+}
+
+#task_name {
+    width: 400px;
+    border-color: transparent;
+    margin-bottom: 10px;
+    z-index: 2;
 }
