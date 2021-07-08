@@ -49,4 +49,4 @@ def login_required(f):
 @login_required
 def index():
     """Show to-do list"""
-    return "TODO"
+    return render_template("index.html")
