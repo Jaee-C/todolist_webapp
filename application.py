@@ -12,6 +12,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 app = Flask(__name__)
 
 app.config["SESSION_TYPE"] = "filesystem"
+app.config["SESSION_PERMANENT"] = False
 Session(app)
 
 db = SQL("sqlite:///todolist.db")
@@ -29,13 +30,20 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def index():
     """Show to-do list"""
     if request.method == "GET":
-        return render_template("index.html")
-    else:
-        return
+        entries = db.execute("SELECT task_name, status FROM tasks WHERE user_id=?", session["user_id"])
+        return render_template("index.html", entries=entries)
+
+    elif request.method == "POST":
+        new_task = request.form.get("new_task")
+
+        if new_task.strip():
+            db.execute("INSERT INTO tasks (user_id, task_name) VALUES (?, ?)", session["user_id"], new_task)
+        entries = db.execute("SELECT task_name, status FROM tasks WHERE user_id=?", session["user_id"])
+        return render_template("index.html", entries=entries)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

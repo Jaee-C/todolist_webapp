@@ -3,13 +3,17 @@
 {% block body %}
 
     <form action="/" method="post">
-        <input type="text" id ="task_name" name="new_task" placeholder="New task">
+        <input type="text" autofocus autocomplete="off" id ="task_name" name="new_task" placeholder="New task">
         <input type="submit" name="add_task" class="btn btn-outline-primary" value="Add">
     </form>
-    <div class="form-check"> 
-        <input type="checkbox" class="form-check-input"> 
-        <label class="form-check-label">entry</label> 
-    </div> 
+    {% if entries %}
+        {% for task in entries %}
+            <div class="form-check"> 
+                <input type="checkbox" class="form-check-input" value="{{ task['task_name'] }}"> 
+                <label class="form-check-label">{{ task["task_name"] }}</label> 
+            </div> 
+        {% endfor %}
+    {% endif %}
     <div class="form-check"> 
         <input type="checkbox" class="form-check-input"> 
         <label class="form-check-label">hello</label> 
