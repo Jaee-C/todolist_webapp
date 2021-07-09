@@ -3,7 +3,7 @@
 {% block body %}
 
 <input type="text" id ="task_name" placeholder="New entry">
-<input type="submit" name="add_task" id="temp" value="Add" hidden>
+<input type="submit" name="add_task" class="btn btn-outline-primary" value="Add">
 <div class="form-check"> 
     <input type="checkbox" class="form-check-input"name="packersOff"> 
     <label class="form-check-label">entry</label> 
@@ -14,9 +14,6 @@
 </div>
 
 <script>
-    document.getElementById("task_name").addEventListener("focus", function() {
-        document.getElementById("temp").removeAttribute("hidden");
-    })
 </script>
 
 {% endblock %}
