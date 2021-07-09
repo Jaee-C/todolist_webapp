@@ -2,18 +2,20 @@
 
 {% block body %}
 
-<input type="text" id ="task_name" placeholder="New entry">
-<input type="submit" name="add_task" class="btn btn-outline-primary" value="Add">
-<div class="form-check"> 
-    <input type="checkbox" class="form-check-input"name="packersOff"> 
-    <label class="form-check-label">entry</label> 
-</div> 
-<div class="form-check"> 
-    <input type="checkbox" class="form-check-input"name="packersOff"> 
-    <label class="form-check-label">hello</label> 
-</div>
+    <form action="/" method="post">
+        <input type="text" id ="task_name" placeholder="New entry">
+        <input type="submit" name="add_task" class="btn btn-outline-primary" value="Add">
+    </form>
+    <div class="form-check"> 
+        <input type="checkbox" class="form-check-input"> 
+        <label class="form-check-label">entry</label> 
+    </div> 
+    <div class="form-check"> 
+        <input type="checkbox" class="form-check-input"> 
+        <label class="form-check-label">hello</label> 
+    </div>
 
-<script>
-</script>
+    <script>
+    </script>
 
 {% endblock %}

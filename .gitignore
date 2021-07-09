@@ -1,6 +1,7 @@
 venv/
 .vscode/
 todolist.db
+flask_session/
 
 *.pyc
 __pycache__/

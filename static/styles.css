@@ -16,6 +16,17 @@ header {
 main {
     max-width: 500px;
     margin: 20px auto auto auto;
+    font-size: large;
+}
+
+@media screen and (max-width: 900px) {
+    main {
+        max-width: 300px;
+    }
+
+    #task_name {
+        max-width: 200px;
+    }
 }
 
 #task_name {
@@ -23,4 +34,46 @@ main {
     border-color: transparent;
     margin-bottom: 10px;
     z-index: 2;
+}
+
+.top-right {
+    line-height: 30px;
+    width: 100px;
+    font-size:large;
+    margin-top: 10px;
+    margin-right: 10px;
+    position:absolute;
+    top:0;
+    right:0;
+}
+
+a, a:visited {
+    color: rgb(112, 112, 112);
+    text-decoration: none;
+}
+
+h1 {
+    color: black;
+}
+
+main .form-control
+{
+    /* Center form controls */
+    display: inline-block;
+
+    /* Override Bootstrap's 100% width for form controls */
+    width: auto;
+    
+}
+
+.forms {
+    text-align: center;
+}
+
+.container p-5 {
+    margin-top: 10px;
+}
+
+.form-group {
+    margin-bottom: 15px;
 }
