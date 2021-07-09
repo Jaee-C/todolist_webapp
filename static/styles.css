@@ -16,7 +16,7 @@ header {
 main {
     max-width: 500px;
     margin: 20px auto auto auto;
-    font-size: large;
+    font-size: 20px;
 }
 
 @media screen and (max-width: 900px) {
@@ -30,7 +30,7 @@ main {
 }
 
 #task_name {
-    width: 400px;
+    width: 442px;
     border-color: transparent;
     margin-bottom: 10px;
     z-index: 2;
@@ -66,6 +66,14 @@ main .form-control
     
 }
 
+.form-check {
+    padding-left: 2em;
+    padding-right: 1em;
+    border-radius: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
 .forms {
     text-align: center;
 }
@@ -80,4 +88,14 @@ main .form-control
 
 p {
     color: red;
+}
+
+/* Style the close button (span) */
+.close {
+    float: right;
+    color:rgb(189, 189, 189);
+  }
+
+div.form-check:hover {
+    background: #eee;
 }
