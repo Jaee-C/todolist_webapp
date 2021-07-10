@@ -93,11 +93,11 @@ p {
 /* Style the close button (span) */
 .close {
     float: right;
-    color:rgb(189, 189, 189);
+    color:rgb(158, 158, 158);
   }
 
 .close:hover {
-    color:rgb(150, 150, 150)
+    color:#192c80;
 }
 
 div.form-check:hover {

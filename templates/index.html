@@ -8,11 +8,11 @@
     </form>
     <form action="/" method="post">
     {% if entries %}
-        {% for task, status in entries %}
+        {% for id, task, status in entries %}
             {% if status == "Incomplete" %}
-                <div class="form-check"> 
-                    <input type="checkbox" class="form-check-input" onclick="toggleComplete('{{ task }}')"> 
-                    <label class="form-check-label">{{ task }}</label><span class="close">&#10006;</span> 
+                <div class="form-check" id="{{ id }}"> 
+                    <input type="checkbox" class="form-check-input" onclick="toggleComplete('{{ id }}')"> 
+                    <label class="form-check-label">{{ task }}</label><span onclick="deleteTask('{{ id }}')"><a class="close" href="#">&#10006;</a></span> 
                 </div> 
             {% else %}
                 <div class="form-check"> 
@@ -22,23 +22,20 @@
             {% endif %}
         {% endfor %}
     {% endif %}
-    </form>
-    <div class="form-check"> 
-        <input type="checkbox" class="form-check-input"> 
-        <label class="form-check-label">byebye</label><span class="close">&#10006;</span>
-    </div>
-    <div class="form-check"> 
-        <input type="checkbox" class="form-check-input"> 
-        <label class="form-check-label">hello</label><span class="close">&#10006;</span>
-    </div>
 
     <script>
-        function toggleComplete(elem) {
-            fetch(`/update-todo/${elem}`, {
+        function toggleComplete(id) {
+            fetch(`/update-todo/${id}`, {
                 method: 'post'
             });
         }
 
+        function deleteTask(id) {
+            document.getElementById(id).remove();
+            fetch(`/delete-todo/${id}`, {
+                method: 'post'
+            });
+        }
 
     </script>
 

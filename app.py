@@ -5,7 +5,6 @@ from datetime import datetime
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
 from functools import wraps
-import json
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -36,18 +35,20 @@ def login_required(f):
 def index():
     """Show to-do list"""
     if request.method == "GET":
-        entries_dict = db.execute("SELECT task_name, status FROM tasks WHERE user_id=?", session["user_id"])
+        entries_dict = db.execute("SELECT task_id, task_name, status FROM tasks WHERE user_id=?", session["user_id"])
         entries = []
         for entry in entries_dict:
-            entries.append((entry["task_name"], entry["status"]))
+            entries.append((entry["task_id"], entry["task_name"], entry["status"]))
         return render_template("index.html", entries=entries)
 
     new_task = request.form.get("new_task")
 
     if new_task.strip():
         db.execute("INSERT INTO tasks (user_id, task_name) VALUES (?, ?)", session["user_id"], new_task)
-    entries = db.execute("SELECT task_name, status FROM tasks WHERE user_id=?", session["user_id"])
-
+    entries_dict = db.execute("SELECT task_id, task_name, status FROM tasks WHERE user_id=?", session["user_id"])
+    entries = []
+    for entry in entries_dict:
+        entries.append((entry["task_id"], entry["task_name"], entry["status"]))
     return render_template("index.html", entries=entries)
 
 
@@ -130,10 +131,18 @@ def logout():
 def updateToDo(task_id):
     """Updates status of task: Completed/Incomplete"""
     
-    status = db.execute("SELECT status FROM tasks WHERE user_id = ? AND task_name = ?", session["user_id"], task_id)
+    status = db.execute("SELECT status FROM tasks WHERE user_id = ? AND task_id = ?", session["user_id"], task_id)
     if status[0]["status"] == "Incomplete":
-        db.execute("UPDATE tasks SET status = 'Completed' WHERE user_id = ? AND task_name = ?", session["user_id"], task_id)
+        db.execute("UPDATE tasks SET status = 'Completed' WHERE user_id = ? AND task_id = ?", session["user_id"], task_id)
     else:
-        db.execute("UPDATE tasks SET status = 'Incomplete' WHERE user_id = ? AND task_name = ?", session["user_id"], task_id)
+        db.execute("UPDATE tasks SET status = 'Incomplete' WHERE user_id = ? AND task_id = ?", session["user_id"], task_id)
+
+    return redirect("/")
+
+@app.route("/delete-todo/<task_id>", methods=["POST"])
+def deleteToDo(task_id):
+    """ Deletes a task """
+
+    db.execute("DELETE FROM tasks WHERE task_id = ?", task_id)
 
     return redirect("/")
