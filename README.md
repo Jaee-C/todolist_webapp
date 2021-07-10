@@ -1,6 +1,5 @@
 # To-Do List
 
-### Video Demo: 
 ### Description:
 This is a to-do list webapp with a minimalistic aesthetic, made using the Flask framework.
 
