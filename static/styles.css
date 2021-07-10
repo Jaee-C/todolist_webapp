@@ -91,7 +91,7 @@ p {
 }
 
 /* Style the close button (span) */
-.close {
+.close, .close:visited {
     float: right;
     color:rgb(158, 158, 158);
   }
