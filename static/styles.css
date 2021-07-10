@@ -96,6 +96,10 @@ p {
     color:rgb(189, 189, 189);
   }
 
+.close:hover {
+    color:rgb(150, 150, 150)
+}
+
 div.form-check:hover {
     background: #eee;
 }
