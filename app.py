@@ -72,6 +72,10 @@ def login():
         # Query database for username
         rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
 
+        # Ensure username exists
+        if len(rows) != 1:
+            return render_template("login.html", user_error="* Username does not exist")
+        
         # Ensure username exists and password is correct
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
             return render_template("login.html", pass_error="* Password and username do not match")
