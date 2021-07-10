@@ -1,11 +1,7 @@
-import os
-
 from cs50 import SQL
-from datetime import datetime
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, redirect, render_template, request, session
 from flask_session import Session
 from functools import wraps
-from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 
 # Configure application
@@ -47,9 +43,12 @@ def index():
         db.execute("INSERT INTO tasks (user_id, task_name) VALUES (?, ?)", session["user_id"], new_task)
     entries_dict = db.execute("SELECT task_id, task_name, status FROM tasks WHERE user_id=?", session["user_id"])
     entries = []
+    completed = False
     for entry in entries_dict:
         entries.append((entry["task_id"], entry["task_name"], entry["status"]))
-    return render_template("index.html", entries=entries)
+        if entry['status'] == 'Completed':
+            completed = True
+    return render_template("index.html", entries=entries, completed=completed)
 
 
 @app.route("/login", methods=["GET", "POST"])
