@@ -2,26 +2,26 @@
 
 {% block body %}
 
-    <form action="/" method="post">
+    <form action="/" method="POST">
         <input type="text" autofocus autocomplete="off" id ="task_name" name="new_task" placeholder="New task">
         <input type="submit" name="add_task" class="btn btn-outline-primary" value="Add">
     </form>
-    <form action="/" method="post">
     {% if entries %}
         {% for id, task, status in entries %}
             {% if status == "Incomplete" %}
                 <div class="form-check" id="{{ id }}"> 
                     <input type="checkbox" class="form-check-input" onclick="toggleComplete('{{ id }}')"> 
-                    <label class="form-check-label">{{ task }}</label><span onclick="deleteTask('{{ id }}')"><a class="close" href="#">&#10006;</a></span> 
+                    <label class="form-check-label">{{ task }}</label><span id="close" onclick="deleteTask('{{ id }}')"><a class="close" href="#">&#10006;</a></span> 
                 </div> 
             {% else %}
-                <div class="form-check"> 
-                    <input type="checkbox" class="form-check-input" onclick="toggleComplete('{{ task }}')" checked> 
-                    <label class="form-check-label">{{ task }}</label><span class="close">&#10006;</span> 
+                <div class="form-check" id="{{ id }}"> 
+                    <input type="checkbox" class="form-check-input" onclick="toggleComplete('{{ id }}')" checked> 
+                    <label class="form-check-label">{{ task }}</label><span id="close" onclick="deleteTask('{{ id }}')"><a class="close" href="#">&#10006;</a></span> 
                 </div>
             {% endif %}
         {% endfor %}
     {% endif %}
+    <button type="button" class="btn btn-outline-dark" id="del" style="margin-top: 10px;">Delete All Completed</button>
 
     <script>
         function toggleComplete(id) {
@@ -37,6 +37,15 @@
             });
         }
 
+        document.querySelector("#del").addEventListener("click", function() {
+            let tasks = document.getElementsByClassName("form-check");
+            for (let i = tasks.length - 1; i >= 0; i--) {
+                let checkbox = tasks[i].getElementsByClassName("form-check-input");
+                if (checkbox[0].checked) {
+                    deleteTask(tasks[i].id);
+                }
+            }
+        })
     </script>
 
 {% endblock %}
